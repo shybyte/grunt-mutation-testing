@@ -7,27 +7,23 @@ exports.init = function (grunt, opts) {
   }
 
   var runner = require('karma').runner;
-  var server = require('karma').server;
   var backgroundProcess;
+  var karmaConfig = _.extend({
+      // defaults, but can be overwritten
+      reporters: [],
+      logLevel: 'OFF',
+      waitForServerTime: 5
+    },
+    opts.karma, {
+      // can't be overwritten, because important for us
+      configFile: path.resolve(opts.karma.configFile),
+      background: false,
+      singleRun: false,
+      autoWatch: false
+    }
+  );
 
   opts.before = function (doneBefore) {
-    var karmaConfig = _.extend(
-      {
-        // defaults, but can be overwritten
-        reporters: [],
-        logLevel: 'OFF',
-        waitForServerTime: 5
-      },
-      opts.karma,
-      {
-        // can't be overwritten, because important for us
-        configFile: path.resolve(opts.karma.configFile),
-        background: false,
-        singleRun: false,
-        autoWatch: false
-      }
-    );
-
     backgroundProcess = grunt.util.spawn({
       cmd: 'node',
       args: [path.join(__dirname, '..', 'lib', 'run-karma-in-background.js'), JSON.stringify(karmaConfig)]
@@ -45,7 +41,7 @@ exports.init = function (grunt, opts) {
   };
 
   opts.test = function (done) {
-    runner.run({}, function (numberOfCFailingTests) {
+    runner.run(karmaConfig, function(numberOfCFailingTests) {
       done(numberOfCFailingTests === 0);
     });
   };
