@@ -43,7 +43,7 @@ module.exports = function (grunt) {
             },
             flagAllMutations: {
                 options: {
-                    test: function (done) {
+                    test: function(done) {
                         done(true);
                     }
                 },
@@ -54,7 +54,7 @@ module.exports = function (grunt) {
             ignore: {
                 options: {
                     ignore: require('./.mutation-testing-conf.js').ignore,
-                    test: function (done) {
+                    test: function(done) {
                         done(true);
                     }
                 },
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
             },
             testIsFailingWithoutMutation: {
                 options: {
-                    test: function (done) {
+                    test: function(done) {
                         done(false);
                     }
                 },
@@ -246,6 +246,253 @@ module.exports = function (grunt) {
 
         },
 
+        'mutationTest-new': {
+            options: {
+                basePath: "test/fixtures/",
+                code: 'mocha/script*.js',
+                specs: [],
+                mutate: 'mocha/script*.js',
+
+                ignore: [/use strict/],
+
+                maxReportedMutationLength: 0,
+                reporters: {
+                    html: {
+                        dir: 'reports/mutation-test'
+                    },
+                    text: {
+                        dir: 'tmp'
+                    }
+                }
+            },
+
+            flagAllMutations: {
+                options: {
+                    test: function(done) {
+                        done(true);
+                    },
+
+                    reporters: {
+                        text: {
+                            file: 'flag-all-mutations.txt'
+                        }
+                    }
+                }
+            },
+            ignore: {
+                options: {
+                    code: 'mocha/script1.js',
+                    mutate: 'mocha/script1.js',
+
+                    ignore: require('./.mutation-testing-conf.js').ignore,
+                    test: function(done) {
+                        done(true);
+                    },
+
+                    reporters: {
+                        text: {
+                            file: 'ignore.txt'
+                        }
+                    }
+                }
+            },
+            testIsFailingWithoutMutation: {
+                options: {
+                    test: function (done) {
+                        done(false);
+                    },
+
+                    reporters: {
+                        text: {
+                            file: 'test-is-failing-without-mutation.txt'
+                        }
+                    }
+                }
+            },
+            flagAllMutationsDefault: {
+                options: {
+                    reporters: {
+                        text: {
+                            file: 'flag-all-mutations-default.txt'
+                        }
+                    }
+                }
+            },
+            grunt: {
+                options: {
+                    ignore: /^log\(/,
+                    test: 'grunt mochaTest:fixtures',
+                    reporters: {
+                        text: {
+                            file: 'grunt.txt'
+                        }
+                    }
+                }
+            },
+            mocha: {
+                options: {
+                    code: 'mocha/script*.js',
+                    specs: 'mocha/mocha-test*.js',
+                    mutate: 'mocha/script*.js',
+                    ignore: /^log\(/,
+                    discardReplacements: [/^console$/],
+                    reporters: {
+                        text: {
+                            file: 'mocha.txt'
+                        }
+                    }
+                }
+            },
+            karma: {
+                options: {
+                    code: 'karma-mocha/script*.js',
+                    specs: ['karma-test.js', 'karma-update-expressions-test.js', 'karma-mathoperators-test.js'],
+                    mutate: 'karma-mocha/script*.js',
+                    discardReplacements: ['console'],
+                    karma: karmaOptions,
+                    reporters: {
+                        text: {
+                            file: 'karma.txt'
+                        }
+                    }
+                }
+            },
+
+            attributes: {
+                options: {
+                    code: ['mocha/attribute.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/attribute-test.js',
+                    mutate: 'mocha/attribute.js',
+                    reporters: {
+                        text: {
+                            file: 'attributes.txt'
+                        }
+                    }
+                }
+            },
+            args: {
+                options: {
+                    code: ['mocha/arguments.js', '../../node_modules/lodash/**/*'],
+                    specs: 'mocha/arguments-test.js',
+                    mutate: 'mocha/arguments.js',
+                    discardReplacements: /^_$/,
+                    reporters: {
+                        text: {
+                            file: 'arguments.txt'
+                        }
+                    }
+                }
+            },
+            array: {
+                options: {
+                    code: ['mocha/array.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/array-test.js',
+                    mutate: 'mocha/array.js',
+                    reporters: {
+                        text: {
+                            file: 'array.txt'
+                        }
+                    }
+                }
+            },
+            comparisons: {
+                options: {
+                    code: ['mocha/comparisons.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/comparisons-test.js',
+                    mutate: 'mocha/comparisons.js',
+                    reporters: {
+                        text: {
+                            file: 'comparisons.txt'
+                        }
+                    }
+                }
+            },
+            functionCalls: {
+                options: {
+                    code: ['mocha/function-calls.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/function-calls-test.js',
+                    mutate: 'mocha/function-calls.js',
+                    reporters: {
+                        text: {
+                            file: 'function-calls.txt'
+                        }
+                    }
+                }
+            },
+            literals: {
+                options: {
+                    code: ['mocha/literals.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/literals-test.js',
+                    mutate: 'mocha/literals.js',
+                    reporters: {
+                        text: {
+                            file: 'literals.txt'
+                        }
+                    }
+                }
+            },
+            unaryExpression: {
+                options: {
+                    code: ['mocha/unaryExpression.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/unaryExpression-test.js',
+                    mutate: 'mocha/unaryExpression.js',
+                    reporters: {
+                        text: {
+                            file: 'unaryExpression.txt'
+                        }
+                    }
+                }
+            },
+            logicalExpression: {
+                options: {
+                    code: ['mocha/logicalExpression.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/logicalExpression-test.js',
+                    mutate: 'mocha/logicalExpression.js',
+                    reporters: {
+                        text: {
+                            file: 'logicalExpression.txt'
+                        }
+                    }
+                }
+            },
+            mathoperators: {
+                options: {
+                    code: ['mocha/mathoperators.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/mathoperators-test.js',
+                    mutate: 'mocha/mathoperators.js',
+                    reporters: {
+                        text: {
+                            file: 'mathoperators.txt'
+                        }
+                    }
+                }
+            },
+            updateExpressions: {
+                options: {
+                    code: ['mocha/update-expressions.js', '../../node_modules/chai/**/*.js'],
+                    specs: 'mocha/update-expressions-test.js',
+                    mutate: 'mocha/update-expressions.js',
+                    reporters: {
+                        text: {
+                            file: 'update-expressions.txt'
+                        }
+                    }
+                }
+            },
+
+            dontTestInsideNotFailingMutations: {
+                options: {
+                    specs: 'mocha/mocha-test*.js',
+                    dontTestInsideNotFailingMutations: true,
+                    reporters: {
+                        text: {
+                            file: 'dont-test-inside-surviving-mutations.txt'
+                        }
+                    }
+                }
+            }
+        },
+
         mochaTest: {
             fixtures: {
                 options: {
@@ -313,6 +560,26 @@ module.exports = function (grunt) {
         'mutationTest:functionCalls',
         'mutationTest:karma',
         'mochaTest:iTest'
+    ]);
+
+    grunt.registerTask('test-new', [
+        'mutationTest-new:flagAllMutations',
+        'mutationTest-new:ignore',
+        'mutationTest-new:flagAllMutationsDefault',
+        'mutationTest-new:testIsFailingWithoutMutation',
+        'mutationTest-new:dontTestInsideNotFailingMutations',
+        'mutationTest-new:mocha',
+        'mutationTest-new:attributes',
+        'mutationTest-new:args',
+        'mutationTest-new:comparisons',
+        'mutationTest-new:mathoperators',
+        'mutationTest-new:updateExpressions',
+        'mutationTest-new:literals',
+        'mutationTest-new:unaryExpression',
+        'mutationTest-new:logicalExpression',
+        'mutationTest-new:array',
+        'mutationTest-new:functionCalls',
+        'mutationTest-new:karma'
     ]);
 
     grunt.registerTask('test:all', [

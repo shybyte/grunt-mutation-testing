@@ -20,6 +20,7 @@ var os = require('os');
 var mutate = require('./mutations');
 var mutationTestingKarma = require('./mutation-testing-karma');
 var mutationTestingMocha = require('./mutation-testing-mocha');
+var OptionUtils = require('../utils/OptionUtils');
 
 var notFailingMutations = [];
 
@@ -281,5 +282,10 @@ module.exports = function (grunt) {
         mutationTestingKarma.init(grunt, opts);
         mutationTestingMocha.init(grunt, opts);
         mutationTest(grunt, this, opts);
+    });
+
+    grunt.registerMultiTask('mutationTest-new', 'Test your tests by mutating the code.', function() {
+        var opts = OptionUtils.getOptions(grunt, this);
+        grunt.log.warn(JSON.stringify(opts));
     });
 };
