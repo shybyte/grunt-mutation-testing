@@ -5,37 +5,32 @@ var path = require('path');
 var CopyUtils = require('../utils/CopyUtils');
 
 exports.init = function(grunt, opts) {
-    if(!opts.mocha) {
+    if(opts.testFramework !== 'mocha') {
         return;
     }
 
-    var testFiles = grunt.file.expand(opts.mocha.testFiles);
+    var testFiles = opts.specs;
     if(testFiles.length === 0) {
-        grunt.log.error('No test files found for testFiles =', opts.mocha.testFiles);
+        grunt.log.error('No test files found in' + testFiles);
     }
 
     opts.before = function(doneBefore) {
         if(opts.mutateProductionCode) {
             doneBefore();
         } else {
-            // TODO: the default behaviour does not perform well. There is probably a smarter way of doing this.
-            var unitTestFiles = opts.unitTestFiles || ['*.js', '**/*.js'];
-            CopyUtils.copyToTemp(unitTestFiles, 'mutation-testing').done(function(tempDirPath) {
-                // Set the paths to the files to be mutated relative to the temp dir
-                var files = [];
-                opts.files.forEach(function(fileSet) {
-                    files.push({
-                        src: fileSet.src.map(function(file) {
-                            return path.join(tempDirPath, file);
-                        }),
-                        dest: fileSet.dest
-                    });
-                });
-                opts.files = files;
+            // Find which files are used in the unit test such that they can be copied
+            CopyUtils.copyToTemp(opts.code.concat(opts.specs), 'mutation-testing').done(function(tempDirPath) {
+                // Set the basePath relative to the temp dir
+                opts.basePath = path.join(tempDirPath, opts.basePath);
 
-                for(var i = 0; i < testFiles.length; i++) {
-                    testFiles[i] = path.join(tempDirPath, testFiles[i]);
-                }
+                testFiles = _.map(testFiles, function(file) {
+                    return path.join(tempDirPath, file);
+                });
+
+                // Set the paths to the files to be mutated relative to the temp dir
+                opts.mutate = _.map(opts.mutate, function(file) {
+                    return path.join(tempDirPath, file);
+                });
 
                 doneBefore();
             });

@@ -1,7 +1,7 @@
-/test/fixtures/mocha/unaryExpression.js:2:18 - can be removed
-/test/fixtures/mocha/unaryExpression.js:6:15 - can be removed
-/test/fixtures/mocha/unaryExpression.js:10:15 ~ can be removed
-/test/fixtures/mocha/unaryExpression.js:14:16 ! can be removed
-/test/fixtures/mocha/unaryExpression.js:18:17 - can be removed
-/test/fixtures/mocha/unaryExpression.js:22:17 ! can be removed
+mocha/unaryExpression.js:2:18 - can be removed
+mocha/unaryExpression.js:6:15 - can be removed
+mocha/unaryExpression.js:10:15 ~ can be removed
+mocha/unaryExpression.js:14:16 ! can be removed
+mocha/unaryExpression.js:18:17 - can be removed
+mocha/unaryExpression.js:22:17 ! can be removed
 18 of 24 unignored mutations are tested (75%).

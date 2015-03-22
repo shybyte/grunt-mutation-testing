@@ -76,7 +76,7 @@ function createStatsMessage(stats) {
 }
 
 function truncateReplacement(opts, replacementArg) {
-    var maxLength = opts.maxReplacementLength !== undefined ? opts.maxReplacementLength : 20;
+    var maxLength = opts.maxReportedMutationLength !== undefined ? opts.maxReportedMutationLength : 80;
     var replacement = replacementArg.replace(/\s+/g, ' ');
     if (maxLength > 0 && replacement.length > maxLength) {
         return replacement.slice(0, maxLength / 2) + ' ... ' + replacement.slice(-maxLength / 2);
@@ -85,17 +85,17 @@ function truncateReplacement(opts, replacementArg) {
 }
 
 function createMutationFileMessage(opts, srcFile) {
+    var mutationFileMessage;
+
+    // Strip off anything before the basePath
+    mutationFileMessage = _.last(srcFile.split(opts.basePath));
+
     // Normalize Windows paths to use '/' instead of '\\'
     if(os.platform() === 'win32') {
-        srcFile = srcFile.replace(/\\/g, '/');
+        mutationFileMessage = mutationFileMessage.replace(/\\/g, '/');
     }
 
-    // Strip off anything before the basePath when present
-    if(opts.basePath && srcFile.indexOf(opts.basePath) !== -1) {
-        srcFile = srcFile.substr(srcFile.indexOf(opts.basePath));
-    }
-
-    return srcFile;
+    return mutationFileMessage;
 }
 
 function createMutationLogMessage(opts, srcFilePath, mutation, src) {
@@ -174,8 +174,8 @@ function mutationTestFile(srcFilename, runTests, logMutation, log, opts) {
 
 
 function mutationTest(grunt, task, opts) {
-    var done = task.async();
-    var mutationTestPromise = new QPromise();
+    var done = task.async(),
+        mutationTestPromise = new QPromise();
 
     function logToMutationReport(fileDest, msg) {
         if (fileDest === 'LOG') {
@@ -202,28 +202,24 @@ function mutationTest(grunt, task, opts) {
     }
 
     opts.before(function () {
-        var files = opts.files;
+        var logFile = 'LOG';
+        if(opts.reporters.text) {
+            logFile = path.join(opts.reporters.text.dir, opts.reporters.text.file || 'grunt-mutation-testing.txt');
+        }
 
         // run first without mutations
         runTests().done(function (testOk) {
             if (!testOk) {
-                files.forEach(function (file) {
-                    logToMutationReport(file.dest, 'Tests fail without mutations.');
+                opts.mutate.forEach(function() {
+                    logToMutationReport(logFile, 'Tests fail without mutations.');
                 });
             } else {
-                files.forEach(function (file) {
+                var logMutationToFileDest = _.partial(logToMutationReport, logFile);
+                var statsSummary = createStats();
+                opts.mutate.forEach(function(file) {
                     mutationTestPromise = mutationTestPromise.then(function () {
-                        var validFiles = file.src.filter(function (filepath) {
-                            if (!grunt.file.exists(filepath)) {
-                                grunt.log.warn('Source file "' + filepath + '" not found.');
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        });
-
-                        if (validFiles.length === 0) {
-                            grunt.log.warn('Found no valid files in ' + JSON.stringify(file.orig.src));
+                        if(!grunt.file.exists(file)) {
+                            grunt.log.warn('Source file "' + file + '" not found.');
                             return false;
                         }
 
@@ -231,24 +227,18 @@ function mutationTest(grunt, task, opts) {
                             grunt.log.write(msg);
                         }
 
-                        var logMutationToFileDest = _.partial(logToMutationReport, file.dest);
-                        var statsSummary = createStats();
-
                         var mutationFilesPromise = new QPromise();
-                        validFiles.forEach(function (srcFile) {
-                            mutationFilesPromise = mutationFilesPromise.then(function () {
-                                return mutationTestFile(path.resolve(srcFile), runTests, logMutationToFileDest, log, opts).then(function (stats) {
-                                    statsSummary = addStats(statsSummary, stats);
-                                });
+                        mutationFilesPromise = mutationFilesPromise.then(function() {
+                            return mutationTestFile(path.resolve(file), runTests, logMutationToFileDest, log, opts).then(function(stats) {
+                                statsSummary = addStats(statsSummary, stats);
                             });
-                        });
-
-                        mutationFilesPromise = mutationFilesPromise.then(function () {
-                            logMutationToFileDest(createStatsMessage(statsSummary));
                         });
 
                         return mutationFilesPromise;
                     });
+                });
+                mutationTestPromise = mutationTestPromise.then(function() {
+                    logMutationToFileDest(createStatsMessage(statsSummary));
                 });
             }
 
@@ -276,16 +266,10 @@ var DEFAULT_OPTIONS = {
 };
 
 module.exports = function (grunt) {
-    grunt.registerMultiTask('mutationTest', 'Test your tests by mutating the production code.', function () {
-        var opts = this.options(DEFAULT_OPTIONS);
-        opts.files = this.files;
+    grunt.registerMultiTask('mutationTest', 'Test your tests by mutating the code.', function() {
+        var opts = OptionUtils.getOptions(grunt, this);
         mutationTestingKarma.init(grunt, opts);
         mutationTestingMocha.init(grunt, opts);
         mutationTest(grunt, this, opts);
-    });
-
-    grunt.registerMultiTask('mutationTest-new', 'Test your tests by mutating the code.', function() {
-        var opts = OptionUtils.getOptions(grunt, this);
-        grunt.log.warn(JSON.stringify(opts));
     });
 };

@@ -1,6 +1,6 @@
-/test/fixtures/mocha/mathoperators.js:2:13  +  can be replaced with: -
-/test/fixtures/mocha/mathoperators.js:6:13  -  can be replaced with: +
-/test/fixtures/mocha/mathoperators.js:10:13  *  can be replaced with: /
-/test/fixtures/mocha/mathoperators.js:15:17  /  can be replaced with: *
-/test/fixtures/mocha/mathoperators.js:21:13  %  can be replaced with: *
+mocha/mathoperators.js:2:13  +  can be replaced with: -
+mocha/mathoperators.js:6:13  -  can be replaced with: +
+mocha/mathoperators.js:10:13  *  can be replaced with: /
+mocha/mathoperators.js:15:17  /  can be replaced with: *
+mocha/mathoperators.js:21:13  %  can be replaced with: *
 16 of 21 unignored mutations are tested (76%).

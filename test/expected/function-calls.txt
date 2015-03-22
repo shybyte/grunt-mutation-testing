@@ -1,3 +1,3 @@
-/test/fixtures/mocha/function-calls.js:2:12 encodeURI(url) can be replaced with: url
-/test/fixtures/mocha/function-calls.js:6:12 string.trim() can be replaced with: string
+mocha/function-calls.js:2:12 encodeURI(url) can be replaced with: url
+mocha/function-calls.js:6:12 string.trim() can be replaced with: string
 7 of 9 unignored mutations are tested (77%).

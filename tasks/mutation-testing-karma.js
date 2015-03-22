@@ -1,10 +1,18 @@
-var path = require('path');
-var _ = require('lodash');
-var karmaParseConfig = require('karma/lib/config').parseConfig;
+/**
+ * mutation-testing-karma
+ *
+ * @author Marco Stahl
+ * @author Jimi van der Woning
+ * @author Martin Koster
+ */
+'use strict';
+var _ = require('lodash'),
+    path = require('path');
+
 var CopyUtils = require('../utils/CopyUtils');
 
 exports.init = function(grunt, opts) {
-    if(!opts.karma) {
+    if(opts.testFramework !== 'karma') {
         return;
     }
 
@@ -25,7 +33,7 @@ exports.init = function(grunt, opts) {
             opts.karma,
             {
                 // can't be overwritten, because important for us
-                configFile: path.resolve(opts.karma.configFile),
+                configFile: opts.karma && opts.karma.configFile ? path.resolve(opts.karma.configFile) : undefined,
                 background: false,
                 singleRun: false,
                 autoWatch: false,
@@ -34,8 +42,7 @@ exports.init = function(grunt, opts) {
         );
 
         startServer = function(startCallback) {
-            //FIXME: nasty fallback in case of infinite looping owing to code mutations. At least make it
-            // non-blocking
+            //FIXME: nasty fallback in case of infinite looping owing to code mutations. At least make it non-blocking
             backgroundProcesses.push(
                 grunt.util.spawn(
                     {
@@ -58,41 +65,17 @@ exports.init = function(grunt, opts) {
 
         if(!opts.mutateProductionCode) {
             // Find which files are used in the unit test such that they can be copied
-            var configFileContents = karmaParseConfig(karmaConfig.configFile, {});
-            var basePath = path.resolve(opts.karma.basePath || configFileContents.basePath || '.');
-            var karmaFiles = opts.unitTestFiles || opts.karma.files;
-            var unitTestFiles;
-            if(karmaFiles) {
-                unitTestFiles = karmaFiles.map(function(file) {
-                    return path.relative(path.resolve('.'), path.join(basePath, file));
-                });
-            } else {
-                unitTestFiles = configFileContents.files.map(function(file) {
-                    return path.relative(path.resolve('.'), file.pattern);
-                });
-            }
+            karmaConfig.files = opts.code.concat(opts.specs);
 
-            CopyUtils.copyToTemp(unitTestFiles, 'mutation-testing').done(function(tempDirPath) {
+            CopyUtils.copyToTemp(karmaConfig.files, 'mutation-testing').done(function(tempDirPath) {
                 // Set the basePath relative to the temp dir
-                karmaConfig.basePath = path.join(
-                    tempDirPath,
-                    path.relative(
-                        path.resolve('.'),
-                        basePath
-                    )
-                );
+                karmaConfig.basePath = tempDirPath;
+                opts.basePath = path.join(tempDirPath, opts.basePath);
 
                 // Set the paths to the files to be mutated relative to the temp dir
-                var files = [];
-                opts.files.forEach(function(fileSet) {
-                    files.push({
-                        src: fileSet.src.map(function(file) {
-                            return path.join(tempDirPath, file);
-                        }),
-                        dest: fileSet.dest
-                    });
+                opts.mutate = _.map(opts.mutate, function(file) {
+                    return path.join(tempDirPath, file);
                 });
-                opts.files = files;
 
                 startServer(doneBefore);
             });

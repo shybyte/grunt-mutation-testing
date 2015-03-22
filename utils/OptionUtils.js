@@ -10,17 +10,28 @@ var _ = require('lodash'),
     path = require('path');
 
 
+// Placeholder function for when no excplicit before, after, or test function is provided
+function CALL_DONE(done) {
+    done(true);
+}
+
 var DEFAULT_OPTIONS = {
+    before: CALL_DONE,
+    after: CALL_DONE,
+    test: CALL_DONE,
+
     basePath: '.',
     testFramework: 'karma',
     maxReportedMutationLength: 80,
     mutateProductionCode: false
 };
 
+// By default, report only to the console, which takes no additional configuration
 var DEFAULT_REPORTER = {
     console: true
 };
 
+// The code, specs and mutate options need to be configured to be able to perform the mutation tests
 var REQUIRED_OPTIONS = ['code', 'specs', 'mutate'];
 
 

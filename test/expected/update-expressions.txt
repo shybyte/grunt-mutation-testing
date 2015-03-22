@@ -1,5 +1,5 @@
-/test/fixtures/mocha/update-expressions.js:3:12 ++ can be replaced with: --
-/test/fixtures/mocha/update-expressions.js:8:12 -- can be replaced with: ++
-/test/fixtures/mocha/update-expressions.js:13:13 ++ can be replaced with: --
-/test/fixtures/mocha/update-expressions.js:20:13 -- can be replaced with: ++
+mocha/update-expressions.js:3:12 ++ can be replaced with: --
+mocha/update-expressions.js:8:12 -- can be replaced with: ++
+mocha/update-expressions.js:13:13 ++ can be replaced with: --
+mocha/update-expressions.js:20:13 -- can be replaced with: ++
 8 of 12 unignored mutations are tested (66%).
