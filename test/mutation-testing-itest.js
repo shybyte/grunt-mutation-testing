@@ -23,10 +23,9 @@ describe('Mutation Testing', function () {
     it('flags all mutations of object literals', function () {
         assertExpectedReport('tmp/attributes.txt', 'test/expected/attributes.txt');
     });
-    // FIXME: test is currently failing, find out why and fix it
-    //it('flags all mutations of arguments', function () {
-    //    assertExpectedReport('tmp/arguments.txt', 'test/expected/arguments.txt');
-    //});
+    it('flags all mutations of arguments', function () {
+        assertExpectedReport('tmp/arguments.txt', 'test/expected/arguments.txt');
+    });
     it('flags all mutations of array literals', function () {
         assertExpectedReport('tmp/array.txt', 'test/expected/array.txt');
     });

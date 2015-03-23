@@ -189,7 +189,7 @@ module.exports = function (grunt) {
             },
             args: {
                 options: {
-                    code: ['mocha/arguments.js', '../../node_modules/lodash/**/*'],
+                    code: ['mocha/arguments.js', '../../node_modules/lodash/**/*', '../../node_modules/chai/**/*.js'],
                     specs: 'mocha/arguments-test.js',
                     mutate: 'mocha/arguments.js',
                     discardReplacements: /^_$/,
@@ -362,13 +362,12 @@ module.exports = function (grunt) {
         'mutationTest:flagAllMutations',
         'mutationTest:ignore',
         'mutationTest:flagAllMutationsDefault',
-        // FIXME: test is currently failing, find out why and fix it
+        //FIXME: test is currently failing, find out why and fix it
         //'mutationTest:testIsFailingWithoutMutation',
         'mutationTest:dontTestInsideNotFailingMutations',
         'mutationTest:mocha',
         'mutationTest:attributes',
-        // FIXME: test is currently failing, find out why and fix it
-        //'mutationTest:args',
+        'mutationTest:args',
         'mutationTest:comparisons',
         'mutationTest:mathoperators',
         'mutationTest:updateExpressions',

@@ -1,5 +1,5 @@
-/test/fixtures/mocha/arguments.js:4:23 _.pluck(persons, 'name') can be replaced with: "MUTATION!"
-/test/fixtures/mocha/arguments.js:4:49 name can be replaced with: "MUTATION!"
-/test/fixtures/mocha/arguments.js:4:31 persons can be replaced with: "MUTATION!"
-/test/fixtures/mocha/arguments.js:4:40 'name' can be replaced with: "MUTATION!"
+mocha/arguments.js:4:23 _.pluck(persons, 'name') can be replaced with: "MUTATION!"
+mocha/arguments.js:4:49 name can be replaced with: "MUTATION!"
+mocha/arguments.js:4:31 persons can be replaced with: "MUTATION!"
+mocha/arguments.js:4:40 'name' can be replaced with: "MUTATION!"
 8 of 12 unignored mutations are tested (66%).
