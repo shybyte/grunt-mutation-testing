@@ -12,6 +12,7 @@ module.exports = function (grunt) {
     // load all npm grunt tasks
     require('load-grunt-tasks')(grunt);
 
+    var chaiCode = '../../node_modules/chai/**/*.js';
     var karmaOptions = {
         configFile: 'test/fixtures/karma-mocha/karma.conf.js'
     };
@@ -154,7 +155,7 @@ module.exports = function (grunt) {
 
             attributes: {
                 options: {
-                    code: ['mocha/attribute.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/attribute.js', chaiCode],
                     specs: 'mocha/attribute-test.js',
                     mutate: 'mocha/attribute.js',
                     reporters: {
@@ -166,7 +167,7 @@ module.exports = function (grunt) {
             },
             args: {
                 options: {
-                    code: ['mocha/arguments.js', '../../node_modules/lodash/**/*', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/arguments.js', '../../node_modules/lodash/**/*', chaiCode],
                     specs: 'mocha/arguments-test.js',
                     mutate: 'mocha/arguments.js',
                     discardReplacements: /^_$/,
@@ -179,7 +180,7 @@ module.exports = function (grunt) {
             },
             array: {
                 options: {
-                    code: ['mocha/array.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/array.js', chaiCode],
                     specs: 'mocha/array-test.js',
                     mutate: 'mocha/array.js',
                     reporters: {
@@ -191,7 +192,7 @@ module.exports = function (grunt) {
             },
             comparisons: {
                 options: {
-                    code: ['mocha/comparisons.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/comparisons.js', chaiCode],
                     specs: 'mocha/comparisons-test.js',
                     mutate: 'mocha/comparisons.js',
                     reporters: {
@@ -203,7 +204,7 @@ module.exports = function (grunt) {
             },
             functionCalls: {
                 options: {
-                    code: ['mocha/function-calls.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/function-calls.js', chaiCode],
                     specs: 'mocha/function-calls-test.js',
                     mutate: 'mocha/function-calls.js',
                     reporters: {
@@ -215,7 +216,7 @@ module.exports = function (grunt) {
             },
             literals: {
                 options: {
-                    code: ['mocha/literals.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/literals.js', chaiCode],
                     specs: 'mocha/literals-test.js',
                     mutate: 'mocha/literals.js',
                     reporters: {
@@ -227,7 +228,7 @@ module.exports = function (grunt) {
             },
             unaryExpression: {
                 options: {
-                    code: ['mocha/unaryExpression.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/unaryExpression.js', chaiCode],
                     specs: 'mocha/unaryExpression-test.js',
                     mutate: 'mocha/unaryExpression.js',
                     reporters: {
@@ -239,7 +240,7 @@ module.exports = function (grunt) {
             },
             logicalExpression: {
                 options: {
-                    code: ['mocha/logicalExpression.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/logicalExpression.js', chaiCode],
                     specs: 'mocha/logicalExpression-test.js',
                     mutate: 'mocha/logicalExpression.js',
                     reporters: {
@@ -251,7 +252,7 @@ module.exports = function (grunt) {
             },
             mathoperators: {
                 options: {
-                    code: ['mocha/mathoperators.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/mathoperators.js', chaiCode],
                     specs: 'mocha/mathoperators-test.js',
                     mutate: 'mocha/mathoperators.js',
                     reporters: {
@@ -263,7 +264,7 @@ module.exports = function (grunt) {
             },
             updateExpressions: {
                 options: {
-                    code: ['mocha/update-expressions.js', '../../node_modules/chai/**/*.js'],
+                    code: ['mocha/update-expressions.js', chaiCode],
                     specs: 'mocha/update-expressions-test.js',
                     mutate: 'mocha/update-expressions.js',
                     reporters: {
