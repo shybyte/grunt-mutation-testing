@@ -1,1 +1,2 @@
-Tests fail without mutations.
+mocha/script1.js tests fail without mutations
+mocha/script2.js tests fail without mutations

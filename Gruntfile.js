@@ -34,32 +34,6 @@ module.exports = function (grunt) {
             tests: ['tmp']
         },
 
-//            testIsFailingWithoutMutation: {
-//                options: {
-//                    test: function(done) {
-//                        done(false);
-//                    }
-//                },
-//                files: {
-//                    'tmp/test-is-failing-without-mutation.txt': ['test/fixtures/mocha/script*.js']
-////          'LOG': ['test/fixtures/mocha/script*.js']
-//                }
-//            },
-
-//            args: {
-//                options: {
-//                    discardReplacements: /^_$/,
-//                    mutateProductionCode: true,
-//                    mocha: {
-//                        testFiles: ['test/fixtures/mocha/arguments-test.js']
-//                    }
-//                },
-//                files: {
-////          'LOG': ['test/fixtures/mocha/arguments.js']
-//                    'tmp/arguments.txt': ['test/fixtures/mocha/arguments.js']
-//                }
-//            },
-
         // Configuration to be run (and then tested).
         'mutationTest': {
             options: {
@@ -84,6 +58,7 @@ module.exports = function (grunt) {
 
             flagAllMutations: {
                 options: {
+                    testFramework: null,
                     test: function(done) {
                         done(true);
                     },
@@ -101,6 +76,7 @@ module.exports = function (grunt) {
                     mutate: 'mocha/script1.js',
 
                     ignore: require('./.mutation-testing-conf.js').ignore,
+                    testFramework: null,
                     test: function(done) {
                         done(true);
                     },
@@ -114,6 +90,7 @@ module.exports = function (grunt) {
             },
             testIsFailingWithoutMutation: {
                 options: {
+                    testFramework: null,
                     test: function (done) {
                         done(false);
                     },
@@ -362,8 +339,7 @@ module.exports = function (grunt) {
         'mutationTest:flagAllMutations',
         'mutationTest:ignore',
         'mutationTest:flagAllMutationsDefault',
-        //FIXME: test is currently failing, find out why and fix it
-        //'mutationTest:testIsFailingWithoutMutation',
+        'mutationTest:testIsFailingWithoutMutation',
         'mutationTest:dontTestInsideNotFailingMutations',
         'mutationTest:mocha',
         'mutationTest:attributes',

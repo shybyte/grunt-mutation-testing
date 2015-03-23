@@ -108,6 +108,11 @@ function createMutationLogMessage(opts, srcFilePath, mutation, src) {
             ' ' + truncateReplacement(opts, mutatedCode) + ' can be removed');
 }
 
+function createTestsFailWithoutMutationsLogMessage(opts, srcFilePath) {
+    var srcFileName = createMutationFileMessage(opts, srcFilePath);
+    return srcFileName + ' tests fail without mutations';
+}
+
 function createNotTestedBecauseInsideUntestedMutationLogMessage(opts, srcFilePath, mutation) {
     var srcFileName = createMutationFileMessage(opts, srcFilePath);
     var currentMutationPosition = srcFileName + ':' + mutation.line + ':' + (mutation.col + 1);
@@ -210,8 +215,8 @@ function mutationTest(grunt, task, opts) {
         // run first without mutations
         runTests().done(function (testOk) {
             if (!testOk) {
-                opts.mutate.forEach(function() {
-                    logToMutationReport(logFile, 'Tests fail without mutations.');
+                opts.mutate.forEach(function(file) {
+                    logToMutationReport(logFile, createTestsFailWithoutMutationsLogMessage(opts, file));
                 });
             } else {
                 var logMutationToFileDest = _.partial(logToMutationReport, logFile);
