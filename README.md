@@ -39,7 +39,7 @@ grunt.initConfig({
 
 ### Options
 
-#### Required files.
+#### File options
 
 ##### options.code
 **Required**
@@ -67,7 +67,7 @@ Default: `"."`
 Base path from which to look for the code, specs, and mutation files
 
 
-#### Test framework
+#### Test framework options
 
 ##### options.testFramework
 _optional_
@@ -91,7 +91,7 @@ Type: `Object`
 Mocha-specific options. See the [Mocha documentation](http://mochajs.org/) for available options.
 
 
-#### Reporting config
+#### Reporting options
 
 ##### options.reporters
 _optional_
@@ -130,13 +130,13 @@ Type: `RegExp` or `[RegExp]`
 
 Mutated code which matches this option is ignored.
 
-### options.excludeMutations
+##### options.excludeMutations
 _optional_
 Type: `Object`
 
 A set indicating if a mutation should be excluded.
 
-### options.mutateProductionCode
+##### options.mutateProductionCode
 Type: `Boolean`
 Default value: false
 
@@ -144,7 +144,7 @@ When true, code is not copied to a temporary directory and mutated there, but in
 
 _Be careful when using this option_, as, in case the mutation process does not exit correctly, your code will be left mutated.
 
-#### options.test
+##### options.test
 Type: `String` or `Function` 
 Default value: No Default value
 
