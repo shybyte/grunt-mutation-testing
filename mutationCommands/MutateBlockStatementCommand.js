@@ -22,4 +22,4 @@ MutateBlockStatementCommand.prototype.execute = function () {
 };
 
 module.exports = MutateBlockStatementCommand;
-module.exports.config = 'BLOCK_STATEMENT';
+module.exports.code = 'BLOCK_STATEMENT';

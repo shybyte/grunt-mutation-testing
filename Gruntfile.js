@@ -38,7 +38,8 @@ module.exports = function (grunt) {
         mutationTest: {
             options: {
                 maxReplacementLength: 0,
-                basePath: '/test/fixtures/'
+                basePath: '/test/fixtures/',
+                ignore: [/use strict/]
             },
             flagAllMutations: {
                 options: {

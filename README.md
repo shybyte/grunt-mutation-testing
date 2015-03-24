@@ -204,6 +204,63 @@ grunt.initConfig({
 })
 ```
 
+## Available mutations
+Currently, the following mutations are available:
+
+| Mutation code        | Description                                                   | Example                                                                       |
+|----------------------|---------------------------------------------------------------|-------------------------------------------------------------------------------|
+| `MATH`               | Replace arithmetic operators by their opposites               | `1 + 1` to `1 - 1`                                                            |
+| `ARRAY`              | Remove elements from an array                                 | `[1,2,3]` to `[1,3]`                                                          |
+| `BLOCK_STATEMENT`    | Remove statements from a block of statements                  | `function foo(x) { x = x * 2; return x; }` to `function foo(x) { return x; }` |
+| `METHOD_CALL`        | Mutate parameters of a function call                          | `foo(x)` to `x`                                                               |
+| `COMPARISON`         | Replace operators by their boundary and negation counterparts | `x < 10` to `x <= 10`                                                         |
+| `LITERAL`            | Replace strings, increment numbers, and negate booleans       | `var x = 'Hello'` to `var x = '"MUTATION!"'`                                  |
+| `LOGICAL_EXPRESSION` | Replace logical operators by their opposites                  | `x && y` to `x || y`                                                          |
+| `OBJECT`             | Remove object properties                                      | `{a: 10, b: 'B'}` to `{b: 'B'}`                                               |
+| `UNARY_EXPRESSION`   | Negate unary expressions                                      | `var x = -42` to `var x = 42`                                                 |
+| `UPDATE_EXPRESSION`  | Negate update expressions                                     | `x++` to `x--`                                                                |
+
+## Excluding mutations
+Since not all mutations may be relevant for your project, it is possible to configure which mutations should be performed and which should not.
+
+### Global exclusions
+In order to completely disable a specific mutation, one can provide the excludeMutations configuration option. This takes an object where the keys represent the mutations and the values denote whether the mutation should in fact be excluded. For example:
+```js
+{
+  mutationTest: {
+    options: {
+      excludeMutations: {
+        'MATH': true,
+        'LITERAL': false,
+        'OBJECT': true
+      }
+    },
+    // ...
+  }
+}
+```
+would disable the `MATH` and `OBJECT` mutations, while the `LITERAL` mutations are still active.
+
+### Local exclusions
+In some cases, more fine-tuning is needed for which mutations should be excluded where. It is possible to disable mutations _on block level_ by prepending the code with a comment containing the `@excludeMutations` keyword.
+
+When only the `@excludeMutations` comment is provided, _all_ mutations will be excluded for the block above which that comment is placed. It is also possible to provide an array of specific mutations that should be excluded, e.g.:
+```js
+function foo() {
+  // ...
+}
+
+/**
+ * @excludeMutations ['MATH', 'OBJECT']
+ */
+function bar() {
+  // ...
+}
+```
+would disable the `MATH` and `OBJECT` mutations on the `bar` method and its contents, but not on `foo`.
+
+All javascript comment types are supported, i.e. one can use both `// @excludeMutations` _and_ `/* @excludeMutations ["ARRAY"] */`. These comments can also be placed in the middle of a line of code, object, or function call, to allow for very specific configuration.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
@@ -227,9 +284,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 - Improved reporting.
 
 ## Planned for the next release
+- Local mutation exclusions;
 - Better (HTML) reporting.
 
 ## Planned for the future
+- Configuration overhaul;
 - Performance improvements (mainly for Karma);
 - Improve documentation;
 - Karma:

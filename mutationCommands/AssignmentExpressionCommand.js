@@ -7,7 +7,7 @@
  */
 var _ = require('lodash'),
     MutateBaseCommand = require('./MutateBaseCommand');
-var AssignmentExpressionCommand = function(src, subTree, callback) {
+function AssignmentExpressionCommand (src, subTree, callback) {
     MutateBaseCommand.call(this, src, subTree, callback)
 };
 

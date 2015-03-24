@@ -1,18 +1,17 @@
-/test/fixtures/mocha/comparisons.js:2:5 return left < right; can be removed
-/test/fixtures/mocha/comparisons.js:2:16  <  can be replaced with: <=
-/test/fixtures/mocha/comparisons.js:2:16  <  can be replaced with: >=
-/test/fixtures/mocha/comparisons.js:6:16  <=  can be replaced with: <
-/test/fixtures/mocha/comparisons.js:6:16  <=  can be replaced with: >
-/test/fixtures/mocha/comparisons.js:10:16  >  can be replaced with: >=
-/test/fixtures/mocha/comparisons.js:10:16  >  can be replaced with: <=
-/test/fixtures/mocha/comparisons.js:14:16  >=  can be replaced with: >
-/test/fixtures/mocha/comparisons.js:14:16  >=  can be replaced with: <
-/test/fixtures/mocha/comparisons.js:18:16  ===  can be replaced with: ==
-/test/fixtures/mocha/comparisons.js:18:16  ===  can be replaced with: !==
-/test/fixtures/mocha/comparisons.js:22:16  ==  can be replaced with: ===
-/test/fixtures/mocha/comparisons.js:22:16  ==  can be replaced with: !=
-/test/fixtures/mocha/comparisons.js:26:16  !==  can be replaced with: !=
-/test/fixtures/mocha/comparisons.js:26:16  !==  can be replaced with: ===
-/test/fixtures/mocha/comparisons.js:30:16  !=  can be replaced with: !==
-/test/fixtures/mocha/comparisons.js:30:16  !=  can be replaced with: ==
-15 of 32 unignored mutations are tested (46%).
+/test/fixtures/mocha/comparisons.js:5:16  <  can be replaced with: <=
+/test/fixtures/mocha/comparisons.js:5:16  <  can be replaced with: >=
+/test/fixtures/mocha/comparisons.js:9:16  <=  can be replaced with: <
+/test/fixtures/mocha/comparisons.js:9:16  <=  can be replaced with: >
+/test/fixtures/mocha/comparisons.js:13:16  >  can be replaced with: >=
+/test/fixtures/mocha/comparisons.js:13:16  >  can be replaced with: <=
+/test/fixtures/mocha/comparisons.js:17:16  >=  can be replaced with: >
+/test/fixtures/mocha/comparisons.js:17:16  >=  can be replaced with: <
+/test/fixtures/mocha/comparisons.js:21:16  ===  can be replaced with: ==
+/test/fixtures/mocha/comparisons.js:21:16  ===  can be replaced with: !==
+/test/fixtures/mocha/comparisons.js:25:16  ==  can be replaced with: ===
+/test/fixtures/mocha/comparisons.js:25:16  ==  can be replaced with: !=
+/test/fixtures/mocha/comparisons.js:29:16  !==  can be replaced with: !=
+/test/fixtures/mocha/comparisons.js:29:16  !==  can be replaced with: ===
+/test/fixtures/mocha/comparisons.js:33:16  !=  can be replaced with: !==
+/test/fixtures/mocha/comparisons.js:33:16  !=  can be replaced with: ==
+15 of 31 unignored mutations are tested (48%). 2 mutations were ignored.

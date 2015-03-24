@@ -1,3 +1,6 @@
+'use strict';
+
+// @excludeMutations ['BLOCK_STATEMENT']
 exports.lessThan = function (left, right) {
     return left < right;
 };

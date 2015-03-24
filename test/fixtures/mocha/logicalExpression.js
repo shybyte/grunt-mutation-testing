@@ -1,8 +1,10 @@
 function getBooleanAnd() {
+    /* @excludeMutations ['LITERAL'] */
     return true && false;
 }
 
 function getBooleanOr() {
+    /* @excludeMutations ['LITERAL'] */
     return true || false;
 }
 

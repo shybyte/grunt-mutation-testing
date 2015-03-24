@@ -1,6 +1,4 @@
-/test/fixtures/mocha/array.js:3:13 el,  can be removed
-/test/fixtures/mocha/array.js:3:17 'string',  can be removed
-/test/fixtures/mocha/array.js:3:27 123 can be removed
-/test/fixtures/mocha/array.js:3:17 'string' can be replaced with: "MUTATION!"
-/test/fixtures/mocha/array.js:3:27 123 can be replaced with: 124
-4 of 9 unignored mutations are tested (44%).
+/test/fixtures/mocha/array.js:5:13 el,  can be removed
+/test/fixtures/mocha/array.js:5:17 'string',  can be removed
+/test/fixtures/mocha/array.js:5:27 123 can be removed
+4 of 7 unignored mutations are tested (57%). 2 mutations were ignored.
