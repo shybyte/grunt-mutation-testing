@@ -36,9 +36,9 @@ module.exports = function (grunt) {
         },
 
         // Configuration to be run (and then tested).
-        'mutationTest': {
+        mutationTest: {
             options: {
-                basePath: "test/fixtures/",
+                basePath: 'test/fixtures/',
                 code: 'mocha/script*.js',
                 specs: [],
                 mutate: 'mocha/script*.js',
