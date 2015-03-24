@@ -63,10 +63,10 @@ exports.init = function(grunt, opts) {
             );
         };
 
-        if(!opts.mutateProductionCode) {
-            // Find which files are used in the unit test such that they can be copied
-            karmaConfig.files = opts.code.concat(opts.specs);
+        // Find which files are used in the unit test
+        karmaConfig.files = opts.code.concat(opts.specs);
 
+        if(!opts.mutateProductionCode) {
             CopyUtils.copyToTemp(karmaConfig.files, 'mutation-testing').done(function(tempDirPath) {
                 // Set the basePath relative to the temp dir
                 karmaConfig.basePath = tempDirPath;
