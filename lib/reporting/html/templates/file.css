@@ -10,7 +10,7 @@ h3 .link {
     text-decoration: underline;
 }
 #source {
-    font-family: courier, 'Lucida Sans Typewriter', monospace;
+    font-family: 'Consolas', 'Courier New', 'Lucida Sans Typewriter', monospace;
     white-space: pre;
 }
 #header {
@@ -18,7 +18,7 @@ h3 .link {
     padding: 10px;
 }
 #popup {
-    position: absolute;
+    position: fixed;
     border: solid 1px black;
     padding: 3px;
     display: none;
