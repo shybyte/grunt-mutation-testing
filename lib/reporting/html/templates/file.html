@@ -3,13 +3,13 @@
     <head lang="en">
         <meta charset="UTF-8"/>
         <meta data-mutation-stats="{{{json stats}}}"/>
-        <title></title>
+        <title>{{#if fileName}}{{fileName}} - {{/if}}Mutation test results</title>
         <style type="text/css">{{{style}}}</style>
         <script type="application/javascript">{{{script}}}</script>
     </head>
     <body onload="onLoad();">
         <header class="{{coverageStatus}}">
-            <h1>Mutation test results {{project}}</h1>
+            <h1>Mutation test results{{#if fileName}}: {{fileName}}{{/if}}</h1>
 
             <section id="mutationStats">
                 <div class="stat">
@@ -42,7 +42,17 @@
 
             <section>
                 <h2>Mutations</h2>
-                <div id="mutations">{{{mutations}}}</div>
+                <table id="mutations">
+                    <thead>
+                        <tr>
+                            <th>Mutation</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{{mutations}}}
+                    </tbody>
+                </table>
             </section>
         </main>
 

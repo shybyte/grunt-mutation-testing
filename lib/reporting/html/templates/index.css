@@ -1,28 +1,104 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Verdana', 'Arial', sans-serif;
+    font-size: 14px;
 }
-#header {
-    background-color: #fff5a0;
+
+header, nav, main, footer {
+    display: block;
     padding: 10px;
 }
-#successRate {
+
+header {
+    background-color: #fff5a0;
+    border-bottom: 1px solid #ddd130;
+}
+
+header.survived {
+    border-bottom-color: #a10;
+}
+
+header.killed {
+    border-bottom-color: #1a0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+#mutationStats, #coverage {
+    padding: 10px 0;
+}
+
+#coverage {
+    font-size: 16px;
+}
+
+#coverage .stat {
+    width: auto;
+}
+
+.stat {
+    display: inline-block;
+    width: 220px;
+}
+
+.statValue {
+    border: 2px solid black;
     padding: 2px;
-    border: none;
+    background-color: white;
+    font-weight: bold;
 }
-#files {
-    margin-left: 30px;
+
+nav {
+    background-color: #fff5a0;
+    border-bottom: 1px solid #ddd130;
 }
-#files .perc {
-    width: 25%;
-    text-align: right;
-}
-.link {
+
+nav .link {
     color: black;
+    text-decoration: underline;
 }
-.killed, .survived {
-    border: solid 1px white;
+
+#files {
+    border-collapse: collapse;
+    width: 100%;
 }
-.killed{background-color: #bfb}
-.survived{background-color: #f66}
-.neutral{background-color: #fff5a0}
+
+#files th, #files td {
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+#files th {
+    background-color: #ddd;
+    font-weight: normal;
+    text-align: left;
+}
+
+#files .link {
+    color: black;
+    /*text-decoration: none;*/
+}
+
+footer {
+    background-color: #ddd;
+    border-top: 1px solid #aaa;
+}
+
+footer p {
+    margin: 0;
+}
+
+.killed {
+    background-color: #bfb
+}
+
+.survived {
+    background-color: #f66
+}
+
+.neutral {
+    background-color: #fff5a0
+}

@@ -1,7 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-family: 'Verdana', 'Arial', sans-serif;
+    font-size: 14px;
 }
 
 header, nav, main, footer {
@@ -31,7 +32,7 @@ header h1 {
 }
 
 #coverage {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #coverage .stat {
@@ -63,6 +64,22 @@ nav .link {
 #source {
     font-family: 'Consolas', 'Courier New', 'Lucida Sans Typewriter', monospace;
     white-space: pre;
+}
+
+#mutations {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#mutations th, #mutations td {
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+#mutations th {
+    background-color: #ddd;
+    font-weight: normal;
+    text-align: left;
 }
 
 footer {
