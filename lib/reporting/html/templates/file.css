@@ -1,38 +1,102 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-size: 16px;
 }
-h3 {
-    margin-left: 40px;
+
+header, nav, main, footer {
+    display: block;
+    padding: 10px;
 }
-h3 .link {
-    cursor: pointer;
+
+header {
+    background-color: #fff5a0;
+    border-bottom: 1px solid #ddd130;
+}
+
+header.survived {
+    border-bottom-color: #a10;
+}
+
+header.killed {
+    border-bottom-color: #1a0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+#mutationStats, #coverage {
+    padding: 10px 0;
+}
+
+#coverage {
+    font-size: 18px;
+}
+
+#coverage .stat {
+    width: auto;
+}
+
+.stat {
+    display: inline-block;
+    width: 220px;
+}
+
+.statValue {
+    border: 2px solid black;
+    padding: 2px;
+    background-color: white;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #fff5a0;
+    border-bottom: 1px solid #ddd130;
+}
+
+nav .link {
+    color: black;
     text-decoration: underline;
 }
+
 #source {
     font-family: 'Consolas', 'Courier New', 'Lucida Sans Typewriter', monospace;
     white-space: pre;
 }
-#header {
-    background-color: #fff5a0;
-    padding: 10px;
+
+footer {
+    background-color: #ddd;
+    border-top: 1px solid #aaa;
 }
+
+footer p {
+    margin: 0;
+}
+
 #popup {
     position: fixed;
     border: solid 1px black;
     padding: 3px;
     display: none;
 }
+
 #popup.show {
     display: block;
 }
-#coverage {
-    padding: 2px;
-    border: none;
-}
-.killed, .survived {
+
+code .killed, code .survived {
     border: solid 1px white;
 }
-.killed{background-color: #bfb}
-.survived{background-color: #f66}
-.neutral{background-color: #fff5a0}
+
+.killed {
+    background-color: #bfb
+}
+
+.survived {
+    background-color: #f66
+}
+
+.neutral {
+    background-color: #fff5a0
+}
