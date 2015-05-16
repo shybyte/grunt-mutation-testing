@@ -131,7 +131,7 @@ module.exports = function (grunt) {
                     code: 'mocha/script*.js',
                     specs: 'mocha/mocha-test*.js',
                     mutate: 'mocha/script*.js',
-                    ignore: /^log\(/,
+                    ignore: /^\s*log\(/,
                     discardReplacements: [/^console$/],
                     reporters: {
                         text: {

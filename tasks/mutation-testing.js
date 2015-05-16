@@ -35,14 +35,39 @@ function ensureRegExpArray(value) {
     });
 }
 
-function canBeIgnored(opts, src, mutation) {
-    if (!opts.ignore) {
-        return false;
+function getIgnoredRanges(opts, src) {
+    function IgnoredRange(start, end) {
+        this.start = start;
+        this.end = end;
+
+        this.coversRange = function(start, end) {
+            return start < this.end && end > this.start;
+        };
     }
-    var ignorePatterns = ensureRegExpArray(opts.ignore);
-    var affectedSrcPart = src.substring(mutation.begin, mutation.end);
-    return _.any(ignorePatterns, function (ignorePattern) {
-        return ignorePattern.test(affectedSrcPart);
+
+    var ignoredRanges = [],
+        // Convert to array of RegExp instances with the required options (global and multiline) set
+        ignore = _.map(opts.ignore ? _.isArray(opts.ignore) ? opts.ignore : [opts.ignore] : [], function(ignorePart) {
+            if(_.isRegExp(ignorePart)) {
+                return new RegExp(ignorePart.source, 'gm' + (ignorePart.ignoreCase ? 'i' : ''));
+            } else {
+                return new RegExp(ignorePart, 'gm');
+            }
+        });
+
+    _.forEach(ignore, function(ignorePart) {
+        var match;
+        while(match = ignorePart.exec(src)) {
+            ignoredRanges.push(new IgnoredRange(match.index, match.index + match[0].length));
+        }
+    });
+
+    return ignoredRanges;
+}
+
+function canBeIgnored(ignoredRanges, mutation) {
+    return _.any(ignoredRanges, function(ignoredRange) {
+        return ignoredRange.coversRange(mutation.begin, mutation.end);
     });
 }
 
@@ -138,6 +163,7 @@ function mutationTestFile(srcFilename, runTests, logMutation, opts) {
     var mutator = new Mutator(src);
     var mutations = mutator.collectMutations(opts.excludeMutations);
     var mutationPromise = new Q({});
+    var ignoredRanges = getIgnoredRanges(opts, src);
 
     var stats = createStats();
     var fileMutationResult = {
@@ -151,10 +177,11 @@ function mutationTestFile(srcFilename, runTests, logMutation, opts) {
 
     mutations.forEach(function (mutation) {
         stats.all += 1;
+
         if (canBeDiscarded(opts, mutation)) {
             return;
         }
-        if (canBeIgnored(opts, src, mutation)) {
+        if (canBeIgnored(ignoredRanges, mutation)) {
             stats.ignored += 1;
             return;
         }
