@@ -21,4 +21,4 @@ karma-mocha/script1.js:15:9 Removed console.log(sum); -> SURVIVED
 karma-mocha/script1.js:14:18 Replaced  +  with - -> SURVIVED
 karma-mocha/script1.js:15:21 Replaced sum with "MUTATION!" -> SURVIVED
 karma-mocha/script1.js:15:9 Replaced console.log(sum) with sum -> SURVIVED
-76 of 99 unignored mutations are tested (76%).
+75 of 98 unignored mutations are tested (76%). 1 mutations were ignored.

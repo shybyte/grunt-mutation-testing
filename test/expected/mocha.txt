@@ -6,4 +6,4 @@ mocha/script1.js:14:17 Replaced sum with "MUTATION!" -> SURVIVED
 mocha/script1.js:14:5 Replaced console.log(sum) with sum -> SURVIVED
 mocha/script2.js:5:5 Removed array = array; -> SURVIVED
 mocha/script2.js:6:9 Replaced array with "MUTATION!" -> SURVIVED
-29 of 37 unignored mutations are tested (78%). 3 mutations were ignored.
+28 of 36 unignored mutations are tested (77%). 4 mutations were ignored.
