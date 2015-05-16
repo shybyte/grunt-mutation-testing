@@ -63,7 +63,7 @@ function ensureReportersConfig(opts) {
 function ensureIgnoreConfig(opts) {
     // Ignore the strict mode keyword mutations, unless the mutateStrictModeKeyword option has been provided
     if(!opts.mutateStrictModeKeyword) {
-        opts.ignore  = opts.ignore ? [DEFAULT_IGNORE].concat(opts.ignore) : DEFAULT_IGNORE;
+        opts.ignore = opts.ignore ? [DEFAULT_IGNORE].concat(opts.ignore) : DEFAULT_IGNORE;
     }
 }
 
