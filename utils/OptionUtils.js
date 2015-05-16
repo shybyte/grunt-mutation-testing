@@ -35,6 +35,9 @@ var DEFAULT_REPORTER = {
     console: true
 };
 
+// By default, always ignore mutations of the 'use strict' keyword
+var DEFAULT_IGNORE = /('use strict'|"use strict");/;
+
 // The code, specs and mutate options need to be configured to be able to perform the mutation tests
 var REQUIRED_OPTIONS = ['code', 'specs', 'mutate'];
 
@@ -48,6 +51,20 @@ function areRequiredOptionsSet(opts) {
     return !_.find(REQUIRED_OPTIONS, function(option) {
         return !opts.hasOwnProperty(option);
     });
+}
+
+function ensureReportersConfig(opts) {
+    // Only set the default reporter when no explicit reporter configuration is provided
+    if(!opts.hasOwnProperty('reporters')) {
+        opts.reporters = DEFAULT_REPORTER;
+    }
+}
+
+function ensureIgnoreConfig(opts) {
+    // Ignore the strict mode keyword mutations, unless the mutateStrictModeKeyword option has been provided
+    if(!opts.mutateStrictModeKeyword) {
+        opts.ignore  = opts.ignore ? [DEFAULT_IGNORE].concat(opts.ignore) : DEFAULT_IGNORE;
+    }
 }
 
 /**
@@ -107,10 +124,8 @@ function getOptions(grunt, task) {
     opts.specs = expandFiles(opts.specs, opts.basePath);
     opts.mutate = expandFiles(opts.mutate, opts.basePath);
 
-    // Only set the default reporter when no explicit reporter configuration is provided
-    if(!opts.hasOwnProperty('reporters')) {
-        opts.reporters = DEFAULT_REPORTER;
-    }
+    ensureReportersConfig(opts);
+    ensureIgnoreConfig(opts);
 
     return opts;
 }

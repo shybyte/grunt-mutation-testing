@@ -1,7 +1,9 @@
-mocha/unaryExpression.js:2:18 Removed - -> SURVIVED
-mocha/unaryExpression.js:6:15 Removed - -> SURVIVED
-mocha/unaryExpression.js:10:15 Removed ~ -> SURVIVED
-mocha/unaryExpression.js:14:16 Removed ! -> SURVIVED
-mocha/unaryExpression.js:18:17 Removed - -> SURVIVED
-mocha/unaryExpression.js:22:17 Removed ! -> SURVIVED
-18 of 24 unignored mutations are tested (75%).
+mocha/unaryExpression.js:1:1 Removed 'use strict'; -> SURVIVED
+mocha/unaryExpression.js:1:1 Replaced 'use strict' with "MUTATION!" -> SURVIVED
+mocha/unaryExpression.js:3:18 Removed - -> SURVIVED
+mocha/unaryExpression.js:7:15 Removed - -> SURVIVED
+mocha/unaryExpression.js:11:15 Removed ~ -> SURVIVED
+mocha/unaryExpression.js:15:16 Removed ! -> SURVIVED
+mocha/unaryExpression.js:19:17 Removed - -> SURVIVED
+mocha/unaryExpression.js:23:17 Removed ! -> SURVIVED
+18 of 26 unignored mutations are tested (69%).
