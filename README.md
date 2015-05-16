@@ -149,29 +149,36 @@ The maximum reported length of the mutation that has been done. When set to `0`,
 
 ##### options.ignore
 _optional_
-Type: `RegExp` or `[RegExp]`
+Type: `String` or `RegExp` or `[String and/or RegExp]`
 
-Mutated code which matches this option is ignored.
+Code that matches with any of the supplied regular expressions will not be mutated in any way.
+
+##### options.ignoreReplacement
+_optional_
+Type: `String` or `RegExp` or `[String and/or RegExp]`
+
+Mutation replacements that match with any of the supplied regular expressions will not be introduced.
 
 ##### options.excludeMutations
 _optional_
 Type: `Object`
 
-A set indicating if a mutation should be excluded.
+A set of properties, indicating whether certain mutations should be excluded for all files. See below for a list of available mutations.
 
 ##### options.mutateProductionCode
+_optional_
 Type: `Boolean`
-Default value: false
+Default: `false`
 
 When true, code is not copied to a temporary directory and mutated there, but instead the original production code is mutated, which can speed up your tests.
 
 _Be careful when using this option_, as, in case the mutation process does not exit correctly, your code will be left mutated.
 
 ##### options.test
-Type: `String` or `Function` 
-Default value: No Default value
+_optional_
+Type: `String` or `Function`
 
-This test is executed for every Mutation. If it succeeds, this mutation is reported.
+This test is executed for every Mutation. If it passes, this mutation is reported as 'survived'.
 
 
 ### Usage Examples
