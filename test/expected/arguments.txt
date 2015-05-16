@@ -2,4 +2,4 @@ mocha/arguments.js:4:23 Replaced _.pluck(persons, 'name') with "MUTATION!" -> SU
 mocha/arguments.js:4:49 Replaced name with "MUTATION!" -> SURVIVED
 mocha/arguments.js:4:31 Replaced persons with "MUTATION!" -> SURVIVED
 mocha/arguments.js:4:40 Replaced 'name' with "MUTATION!" -> SURVIVED
-8 of 12 unignored mutations are tested (66%).
+6 of 10 unignored mutations are tested (60%). 2 mutations were ignored.

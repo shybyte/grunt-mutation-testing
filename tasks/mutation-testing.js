@@ -28,31 +28,51 @@ var Mutator = require('../lib/Mutator'),
 var logger = log4js.getLogger('mutation-testing'),
     survivingMutations = [];
 
-function ensureRegExpArray(value) {
-    var array = _.isArray(value) ? value : [value];
-    return array.map(function (stringOrRegExp) {
-        return _.isString(stringOrRegExp) ? new RegExp('^' + stringOrRegExp + '$') : stringOrRegExp;
+
+function ensureArray(val) {
+    return val ? _.isArray(val) ? val : [val] : [];
+}
+
+function getIgnoredRanges(opts, src) {
+    function IgnoredRange(start, end) {
+        this.start = start;
+        this.end = end;
+
+        this.coversRange = function(start, end) {
+            return start < this.end && end > this.start;
+        };
+    }
+
+    var ignoredRanges = [],
+        // Convert to array of RegExp instances with the required options (global and multiline) set
+        ignore = _.map(ensureArray(opts.ignore), function(ignorePart) {
+            if(_.isRegExp(ignorePart)) {
+                return new RegExp(ignorePart.source, 'gm' + (ignorePart.ignoreCase ? 'i' : ''));
+            } else {
+                return new RegExp(ignorePart, 'gm');
+            }
+        });
+
+    _.forEach(ignore, function(ignorePart) {
+        var match;
+        while(match = ignorePart.exec(src)) {
+            ignoredRanges.push(new IgnoredRange(match.index, match.index + match[0].length));
+        }
+    });
+
+    return ignoredRanges;
+}
+
+function isInIgnoredRange(mutation, ignoredRanges) {
+    return _.any(ignoredRanges, function(ignoredRange) {
+        return ignoredRange.coversRange(mutation.begin, mutation.end);
     });
 }
 
-function canBeIgnored(opts, src, mutation) {
-    if (!opts.ignore) {
-        return false;
-    }
-    var ignorePatterns = ensureRegExpArray(opts.ignore);
-    var affectedSrcPart = src.substring(mutation.begin, mutation.end);
-    return _.any(ignorePatterns, function (ignorePattern) {
-        return ignorePattern.test(affectedSrcPart);
-    });
-}
-
-function canBeDiscarded(opts, mutation) {
-    if (!opts.discardReplacements) {
-        return false;
-    }
-    var discardPatterns = ensureRegExpArray(opts.discardReplacements);
-    return _.any(discardPatterns, function (discardPattern) {
-        return discardPattern.test(mutation.replacement);
+function replacementIsIgnored(mutation, ignoredReplacements) {
+    return _.any(ensureArray(ignoredReplacements), function(ignoredReplacement) {
+        ignoredReplacement = _.isRegExp(ignoredReplacement) ? ignoredReplacement : new RegExp(ignoredReplacement);
+        return ignoredReplacement.test(mutation.replacement);
     });
 }
 
@@ -138,6 +158,7 @@ function mutationTestFile(srcFilename, runTests, logMutation, opts) {
     var mutator = new Mutator(src);
     var mutations = mutator.collectMutations(opts.excludeMutations);
     var mutationPromise = new Q({});
+    var ignoredRanges = getIgnoredRanges(opts, src);
 
     var stats = createStats();
     var fileMutationResult = {
@@ -151,13 +172,12 @@ function mutationTestFile(srcFilename, runTests, logMutation, opts) {
 
     mutations.forEach(function (mutation) {
         stats.all += 1;
-        if (canBeDiscarded(opts, mutation)) {
-            return;
-        }
-        if (canBeIgnored(opts, src, mutation)) {
+
+        if (isInIgnoredRange(mutation, ignoredRanges) || replacementIsIgnored(mutation, opts.ignoreReplacement)) {
             stats.ignored += 1;
             return;
         }
+
         var currentIndex = stats.all,
             perc = Math.round((currentIndex / mutations.length) * 100);
         mutationPromise = mutationPromise.then(function () {

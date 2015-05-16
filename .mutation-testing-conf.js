@@ -1,1 +1,1 @@
-exports.ignore = [/^console.log\(/, /^function/];
+exports.ignore = [/^\s*console.log\(/, /^function/];

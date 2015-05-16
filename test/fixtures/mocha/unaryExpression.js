@@ -1,3 +1,4 @@
+'use strict';
 function getBinaryExpression() {
     return -(6*7);
 }

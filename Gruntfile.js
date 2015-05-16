@@ -45,7 +45,6 @@ module.exports = function (grunt) {
                 mutate: 'mocha/script*.js',
 
                 testFramework: 'mocha',
-                ignore: [/use strict/],
 
                 logLevel: 'WARN',
                 maxReportedMutationLength: 0,
@@ -131,8 +130,8 @@ module.exports = function (grunt) {
                     code: 'mocha/script*.js',
                     specs: 'mocha/mocha-test*.js',
                     mutate: 'mocha/script*.js',
-                    ignore: /^log\(/,
-                    discardReplacements: [/^console$/],
+                    ignore: /^\s*log\(/,
+                    ignoreReplacement: [/^console$/],
                     reporters: {
                         text: {
                             file: 'mocha.txt'
@@ -145,7 +144,7 @@ module.exports = function (grunt) {
                     code: 'karma-mocha/script*.js',
                     specs: ['karma-mocha/karma-test.js', 'karma-mocha/karma-endlessLoop-test.js', 'karma-mocha/karma-update-expressions-test.js', 'karma-mocha/karma-mathoperators-test.js'],
                     mutate: 'karma-mocha/script*.js',
-                    discardReplacements: ['console'],
+                    ignoreReplacement: ['^console$'],
                     testFramework: 'karma',
                     karma: {
                         frameworks: ['mocha', 'chai'],
@@ -177,7 +176,7 @@ module.exports = function (grunt) {
                     code: ['mocha/arguments.js', '../../node_modules/lodash/**/*', chaiCode],
                     specs: 'mocha/arguments-test.js',
                     mutate: 'mocha/arguments.js',
-                    discardReplacements: /^_$/,
+                    ignoreReplacement: /^_$/,
                     reporters: {
                         text: {
                             file: 'arguments.txt'
@@ -238,6 +237,7 @@ module.exports = function (grunt) {
                     code: ['mocha/unaryExpression.js', chaiCode],
                     specs: 'mocha/unaryExpression-test.js',
                     mutate: 'mocha/unaryExpression.js',
+                    mutateStrictModeKeyword: true,
                     reporters: {
                         text: {
                             file: 'unaryExpression.txt'
