@@ -11,10 +11,11 @@ var operators = {
     '<=': {boundary: '<', negation: '>'},
     '>': {boundary: '>=', negation: '<='},
     '>=': {boundary: '>', negation: '<'},
-    '===': {boundary: '==', negation: '!=='},
-    '==': {boundary: '===', negation: '!='},
-    '!==': {boundary: '!=', negation: '==='},
-    '!=': {boundary: '!==', negation: '=='}
+    /* TODO: reimplement these once we can execute several mutation commands on the same type of AST node */
+    '===': {/*boundary: '==', */negation: '!=='},
+    '==': {/*boundary: '===', */negation: '!='},
+    '!==': {/*boundary: '!=', */negation: '==='},
+    '!=': {/*boundary: '!==', */negation: '=='}
 };
 
 function MutateComparisonOperatorCommand (src, subTree, callback) {

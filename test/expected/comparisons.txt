@@ -6,12 +6,8 @@ mocha/comparisons.js:13:16 Replaced  >  with >= -> SURVIVED
 mocha/comparisons.js:13:16 Replaced  >  with <= -> SURVIVED
 mocha/comparisons.js:17:16 Replaced  >=  with > -> SURVIVED
 mocha/comparisons.js:17:16 Replaced  >=  with < -> SURVIVED
-mocha/comparisons.js:21:16 Replaced  ===  with == -> SURVIVED
 mocha/comparisons.js:21:16 Replaced  ===  with !== -> SURVIVED
-mocha/comparisons.js:25:16 Replaced  ==  with === -> SURVIVED
 mocha/comparisons.js:25:16 Replaced  ==  with != -> SURVIVED
-mocha/comparisons.js:29:16 Replaced  !==  with != -> SURVIVED
 mocha/comparisons.js:29:16 Replaced  !==  with === -> SURVIVED
-mocha/comparisons.js:33:16 Replaced  !=  with !== -> SURVIVED
 mocha/comparisons.js:33:16 Replaced  !=  with == -> SURVIVED
-15 of 31 unignored mutations are tested (48%). 2 mutations were ignored.
+15 of 27 unignored mutations are tested (55%). 2 mutations were ignored.
