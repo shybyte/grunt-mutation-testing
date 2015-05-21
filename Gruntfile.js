@@ -237,7 +237,7 @@ module.exports = function (grunt) {
                     code: ['mocha/unaryExpression.js', chaiCode],
                     specs: 'mocha/unaryExpression-test.js',
                     mutate: 'mocha/unaryExpression.js',
-                    mutateStrictModeKeyword: true,
+                    discardDefaultIgnore: true,
                     reporters: {
                         text: {
                             file: 'unaryExpression.txt'

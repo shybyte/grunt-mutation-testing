@@ -154,7 +154,7 @@ Default: `/('use strict'|"use strict");/`
 
 Code that matches with any of the supplied regular expressions will not be mutated in any way.
 
-Note that, by default, mutations on the strict mode keyword `'use strict'` will be ignored. If you really do want to mutate it, this can be done by providing the `options.mutateStrictModeKeyword` option (see below).
+Note that, by default, mutations on the strict mode keyword `'use strict'` will be ignored. If you really do want to mutate it, this can be done by providing the `options.discardDefaultIgnore` option (see below).
 
 ##### options.ignoreReplacement
 _optional_
@@ -177,12 +177,12 @@ When true, code is not copied to a temporary directory and mutated there, but in
 
 _Be careful when using this option_, as, in case the mutation process does not exit correctly, your code will be left mutated.
 
-##### options.mutateStrictModeKeyword
+##### options.discardDefaultIgnore
 _optional_
 Type: `Boolean`
 Default: `false`
 
-When true, the strict mode keyword `'use strict'` will be mutated, despite the fact that it is excluded in `options.ignore`.
+When true, mutations that are ignored by default (see `options.ignore`, above) will no longer be ignored.
 
 We do not really see any relevant use case for this, but did not want to make it impossible to perform certain mutations either. Hence the existence of this configuration option.
 
