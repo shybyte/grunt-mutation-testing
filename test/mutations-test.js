@@ -269,5 +269,43 @@ describe('Mutations', function () {
                 replacement: '&&'
             }]);
         });
+
+        function mulArrowStmt(array) {
+            return array.reduce((x, y) => {
+                return x * y;
+            });
+        }
+
+        var mulArrowStmtSrc = mulArrowStmt.toString();
+        it('find mutations in statement arrow functions', function () {
+            var foundMutations = new Mutator(mulArrowStmtSrc).collectMutations();
+
+	        var innerReturnMutation = foundMutations[5];
+	        assertDeepEquivalent(['begin', 'end', 'replacement'], [innerReturnMutation], [{
+                begin: 91,
+                end: 104,
+                line: 3,
+                col: 16,
+                replacement: ''
+	        }]);
+        });
+
+        function mulArrowExpr(array) {
+            return array.reduce((x, y) => x * y);
+        }
+
+        var mulArrowExprSrc = mulArrowExpr.toString();
+        it('find mutations in expression arrow functions', function () {
+	        var foundMutations = new Mutator(mulArrowExprSrc).collectMutations();
+
+	        var expressionMutation = foundMutations[5];
+	        assertDeepEquivalent(['begin', 'end', 'replacement'], [expressionMutation], [{
+                begin: 74,
+                end: 77,
+                line: 2,
+                col: 43,
+                replacement: '/'
+	        }]);
+        });
     })
 });
