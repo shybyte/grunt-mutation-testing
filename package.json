@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "escodegen": "~1.6.1",
-    "esprima": "~1.2.5",
+    "esprima": "~2.7.2",
     "fs-extra": "~0.16.5",
     "glob": "~5.0.10",
     "handlebars": "~3.0.3",
